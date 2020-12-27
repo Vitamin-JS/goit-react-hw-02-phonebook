@@ -1,4 +1,22 @@
-.App {
+.titleH1 {
+  color: rgb(151, 12, 12);
+  font-size: 32px;
+  /* text-align: center; */
+  font-weight: 700;
+  line-height: 1.4;
+  margin-left: 20px;
+}
+
+.titleH2 {
+  color: rgb(199, 15, 15);
+  font-size: 28px;
+  /* text-align: center; */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-left: 20px;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +53,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
