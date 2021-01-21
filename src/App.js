@@ -1,7 +1,12 @@
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
 
 import React, { Component } from 'react';
+import { number } from 'prop-types';
 // import Feedback from './components/FeedbackOptions';
+import ContactForm from './components/ContactForm';
+import Filter from './components/Filter';
+import ContactList from './components/ContactList';
 
 class App extends Component {
   state = {
@@ -16,15 +21,62 @@ class App extends Component {
     number: '',
   };
 
+  nameInputId = uuidv4();
+
+  handleNameChange = event => {
+    console.log(event.currentTarget.value);
+    this.setState({ name: event.currentTarget.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
+  // getVisibleContacts=()=>{this.state.contacts};
+
+  // deleteContact
+
   render() {
     return (
       <div>
-        <h1 className="titleH1">Phonebook</h1>
-        {/* <ContactForm ... /> */}
+        <form onSubmit={this.handleSubmit}>
+          <h1 className="titleH1">Phonebook</h1>
+          {/* <ContactForm ... /> */}
 
-        <h2 className="titleH2">Contacts</h2>
-        {/* <Filter ... />
-        <ContactList ... /> */}
+          <label className="formStyle">
+            Name
+            <br></br>
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleNameChange}
+              className="inputNameStyle"
+            />
+          </label>
+          <br></br>
+
+          <label className="formStyle">
+            Number
+            <br></br>
+            <input
+              type="text"
+              value={this.state.number}
+              onChange={this.handleNameChange}
+              className="inputNameStyle"
+            />
+          </label>
+          <br></br>
+
+          <button type="submit">Add contact</button>
+
+          <h2 className="titleH2">Contacts</h2>
+          <ContactList contacts={this.state.contacts} />
+
+          {/* contacts={this.getVisibleContacts()}  свойства ContactLis
+          onDelete={this.deleteContact} */}
+          {/* <Filter ... />*/}
+        </form>
       </div>
     );
   }
