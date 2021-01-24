@@ -2,7 +2,7 @@ import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 
 import React, { Component } from 'react';
-import { number } from 'prop-types';
+import PropTypes from 'prop-types';
 // import Feedback from './components/FeedbackOptions';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
@@ -11,21 +11,22 @@ import ContactList from './components/ContactList';
 class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-1', name: 'Rosie Simpson', number: '459- 12 - 56' },
       { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+    username: '',
+    usernumber: '',
   };
 
   nameInputId = uuidv4();
 
-  handleNameChange = event => {
+  handleInputChange = event => {
     console.log(event.currentTarget.value);
-    this.setState({ name: event.currentTarget.value });
+    const { name, value } = event.currentTarget;
+    this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
@@ -53,8 +54,9 @@ class App extends Component {
             <br></br>
             <input
               type="text"
-              value={this.state.name}
-              onChange={this.handleNameChange}
+              name="username" // имя как в state
+              value={this.state.username}
+              onChange={this.handleInputChange}
               className="inputNameStyle"
             />
           </label>
@@ -64,9 +66,10 @@ class App extends Component {
             Number
             <br></br>
             <input
-              type="text"
-              value={this.state.number}
-              onChange={this.handleNameChange}
+              type="number"
+              name="usernumber" // имя как в state
+              value={this.state.usernumber}
+              onChange={this.handleInputChange}
               className="inputNameStyle"
             />
           </label>
