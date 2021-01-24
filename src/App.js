@@ -35,7 +35,11 @@ class App extends Component {
 
   // getVisibleContacts=()=>{this.state.contacts};
 
-  // deleteContact
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
 
   render() {
     return (
@@ -71,10 +75,13 @@ class App extends Component {
           <button type="submit">Add contact</button>
 
           <h2 className="titleH2">Contacts</h2>
-          <ContactList contacts={this.state.contacts} />
+          <ContactList
+            contacts={this.state.contacts}
+            onDeleteContact={this.deleteContact}
+          />
 
           {/* contacts={this.getVisibleContacts()}  свойства ContactLis
-          onDelete={this.deleteContact} */}
+          }
           {/* <Filter ... />*/}
         </form>
       </div>
