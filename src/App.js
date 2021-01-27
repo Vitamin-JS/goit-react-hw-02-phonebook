@@ -1,9 +1,6 @@
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
-
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import Feedback from './components/FeedbackOptions';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
@@ -21,18 +18,28 @@ class App extends Component {
     usernumber: '',
   };
 
-  nameInputId = uuidv4();
+  addContact = (username, usernumber) => {
+    const contact = {
+      id: uuidv4(),
+      name: username,
+      number: usernumber,
+    };
+
+    this.setState(({ contacts }) => ({ contacts: [contact, ...contacts] }));
+    console.log(this.state);
+  };
 
   handleInputChange = event => {
     console.log(event.currentTarget.value);
+
     const { name, value } = event.currentTarget;
     this.setState({ [name]: value });
-  };
+  }; // скопировал в Форм - удалить
 
   handleSubmit = e => {
     e.preventDefault();
     console.log(this.state);
-  };
+  }; // скопировал в Форм - удалить
 
   // getVisibleContacts=()=>{this.state.contacts};
 
@@ -43,59 +50,24 @@ class App extends Component {
   };
 
   render() {
+    const { contacts } = this.state;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <h1 className="titleH1">Phonebook</h1>
-          {/* <ContactForm ... /> */}
+      <>
+        <h1 className="titleH1">Phonebook</h1>
+        <ContactForm onSubmit={this.addContact} contacts={contacts} />
 
-          <label className="formStyle">
-            Name
-            <br></br>
-            <input
-              type="text"
-              name="username" // имя как в state
-              value={this.state.username}
-              onChange={this.handleInputChange}
-              className="inputNameStyle"
-            />
-          </label>
-          <br></br>
+        <h2 className="titleH2">Contacts</h2>
+        <ContactList
+          contacts={this.state.contacts}
+          onDeleteContact={this.deleteContact}
+        />
 
-          <label className="formStyle">
-            Number
-            <br></br>
-            <input
-              type="number"
-              name="usernumber" // имя как в state
-              value={this.state.usernumber}
-              onChange={this.handleInputChange}
-              className="inputNameStyle"
-            />
-          </label>
-          <br></br>
-
-          <button type="submit">Add contact</button>
-
-          <h2 className="titleH2">Contacts</h2>
-          <ContactList
-            contacts={this.state.contacts}
-            onDeleteContact={this.deleteContact}
-          />
-
-          {/* contacts={this.getVisibleContacts()}  свойства ContactLis
-          }
-          {/* <Filter ... />*/}
-        </form>
-      </div>
+        {/* contacts={this.getVisibleContacts()}  свойства ContactLis
+        }
+        {/* <Filter ... />*/}
+      </>
     );
   }
 }
-
-App.propTypes = {
-  // options: PropTypes.objectOf(PropTypes.number).isRequired,
-  // getItemName: PropTypes.func,
-  // onLeaveFeedback: PropTypes.func,
-};
 
 export default App;
